@@ -37,8 +37,8 @@
 
 #include "ofMain.h"
 
-#define USE_QUICKTIME_7
-#define USE_JACK_AUDIO
+//#define USE_QUICKTIME_7
+//#define USE_JACK_AUDIO
 
 enum ofxThreadedVideoEventType{
     VIDEO_EVENT_LOAD_OK = 0,
@@ -104,9 +104,10 @@ public:
 
 #ifdef USE_QUICKTIME_7
     float getVolume(); // we should implement for QT6
-    void setPan(float pan);
     float getPan();
 #endif
+    
+    void setPan(float pan);
     
     void setLoopState(ofLoopType state);
     int getLoopState();

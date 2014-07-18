@@ -337,7 +337,6 @@ void ofxThreadedVideo::threadedFunction(){
                     bPopCommand = true;
                 }
                 
-#ifdef USE_QUICKTIME_7
                 if(c.getCommand() == "setPan"){
                     if(bVerbose) ofLogVerbose() << instanceID << " = " << c.getCommandAsString();
                     lock();
@@ -346,7 +345,6 @@ void ofxThreadedVideo::threadedFunction(){
                     video[videoID].setPan(pan);
                     bPopCommand = true;
                 }
-#endif
                 
                 if(c.getCommand() == "setLoopState"){
                     if(bVerbose) ofLogVerbose() << instanceID << " = " << c.getCommandAsString();
@@ -768,19 +766,19 @@ float ofxThreadedVideo::getVolume(){ // we should implement for QT6
 }
 
 //--------------------------------------------------------------
+float ofxThreadedVideo::getPan(){
+    ofScopedLock lock(mutex);
+    return pan;
+}
+#endif
+
+//--------------------------------------------------------------
 void ofxThreadedVideo::setPan(float _pan){
     _pan = CLAMP(_pan, -1.0f, 1.0f);
     ofxThreadedVideoCommand c("setPan", instanceID);
     c.setArgument(_pan);
     pushCommand(c);
 }
-
-//--------------------------------------------------------------
-float ofxThreadedVideo::getPan(){
-    ofScopedLock lock(mutex);
-    return pan;
-}
-#endif
 
 //--------------------------------------------------------------
 void ofxThreadedVideo::setLoopState(ofLoopType state){
